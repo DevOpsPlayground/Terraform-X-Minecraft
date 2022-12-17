@@ -25,7 +25,7 @@ The session should take ~60 minutes and attendees does not need to have any prev
 
 ### <b>Here is what we are going to cover:</b>
 
-### [Lab_1 - Lets start with the dot](./lab_1/README.md): 
+### [Lab_1 - Let's start with the dot](./lab_1/README.md): 
 
     - Terraform setup - configuring and inititalising the provider
     - Creating and deploying your first terraform resource and talking about terraform state
