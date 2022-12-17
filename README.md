@@ -8,11 +8,9 @@ Welcome to your introduction to Infrastucture as Code with Terraform. Today we a
 As long as you are registered for the event you can request your environment at [lab.devopsplayground.org](https://lab.devopsplayground.org/)
 We created a virtual machine for you with terminal and IDE as well as running minecraft server. We installed the mode so you can render the world in the browser. There are different views availible, but for this workshops we are going to use flat and 3d view as shown on the screenshot below:
 
-<center>
-
-![map](./lab_1/images/mc-map.png)
-
-</center>
+<p align="center">
+  <img src="./lab_1/images/mc-map.png" />
+</p>
 
 This setup while does not require you to install anything comes with some limitations. The rendering needs to be triggered from the minecraft server. For your convinience we added the following commands you can use on the instance:
 

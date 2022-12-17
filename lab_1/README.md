@@ -33,11 +33,9 @@ terraform init
 ```
 The output hould look like below:
 
-<center>
-
-![tf-init](./images/tf-init.png)
-
-</center>
+<p align="center">
+  <img src="./images/tf-init.png" />
+</p>
 
 <b>Note</b> Terraform created a hidden directory where the provider executable was downloaded as well created the dependancy file.
 
