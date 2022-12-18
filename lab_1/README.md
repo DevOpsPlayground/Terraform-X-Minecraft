@@ -65,3 +65,61 @@ After running terraform apply type `yes` to confirm the plan. Your output should
 <p align="center">
   <img src="./images/tf-plan-apply.png" />
 </p>
+
+Once your plan is appplied - please type the command below to refresh the view of your world:
+```
+render-flat
+```
+After ~60 seconds you should see your block at `<your-panda>.devopsplayground.org:8123`
+
+## Terraform state
+Once we applied the configuration - lets have a quick look on what kind sorcerry terraform did for us behind the scenes. Lets type:
+
+```bash
+ls-al
+cat terraform.tfstate
+```
+
+Your output should look like below: 
+
+<p align="center">
+  <img src="./images/tf-state.png" />
+</p>
+
+<b>Note</b>: Terroform created the state file where the current state of your infrastructure is captured. When running a plan - terraform will refer to the state to see how your desired state is deffernet from your current state. The state can be configured to be stored remotely (i.e. terraform cloud, S3) so all your engineers have the same information to execute against. You can use `terraform state <option>` commands to manipulate your state.
+
+## Using variables
+Terraform is making the use of vaiables we can define and use in our configurations. Let's create a `variables.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory and paste the following:
+```go
+variable "block_material" {
+    type = string
+    default = "minecraft:stone"
+    description = "Type of material you are using for your structure - different materials will have different colours"
+}
+
+variable "position" {
+  type = object({
+    x = number
+    y = number
+    z = number
+  })
+
+  default = {
+    x = 0,
+    y = 64,
+    z = 0
+  }
+}
+```
+You can see the we can define simple variables like strings or integers as well as more complex objects. Now lets edit our `main.tf` file to make use of our variables.
+```go
+resource "minecraft_block" "stone" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+```
