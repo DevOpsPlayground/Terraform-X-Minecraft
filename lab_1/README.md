@@ -158,8 +158,8 @@ resource "minecraft_block" "block_two" {
   }
 }
 ```
-<b>Note</b>: Each resource we create needs to have a unique name hence we have `block_one` and `block_two`. You can imagine how long our configuration will get when we start building something more complex right? Don't worry - we will cover how two deal with in the next labs! 
-Please also note how in the 2nd block we used our vaiable with simple match and therefore changed the coordinates for our block. We can run a our apply now and let's override our `block_material` variable again.
+<b>Note</b>: Each resource we create needs to have a unique name hence we have `block_one` and `block_two`. You can imagine how long our configuration will get when we start building something more complex right? Don't worry - we will cover how two deal with this in the next labs! 
+Please also note how in the 2nd block we used our vaiable with simple math and therefore changed the coordinates for our block. We can run a our apply now and let's override our `block_material` variable again.
 
 ```bash
 terraform apply -var='block_material=minecraft:gold_ore'
@@ -171,13 +171,15 @@ Your output should look like below:
   <img src="./images/tf-apply-var.png" />
 </p>
 
-<b>Note</b>: This time our good old block was destroyed before we created a new one it is place. Your previous plan was suggesting the change in-place instead. This is because we change our resource name in the configuration. Certain operations will force the resources to be recreated whcih might be crucial for your runs i.e. chaning a tag will be most likely change in place while rewriting a bootstap script for your virtual machine will most likely cause the recration of the resource. In the bigger configuration this could have a cascading effect.
+<b>Note</b>: This time our good old block was destroyed before we created a new one in it is place. Your previous plan was suggesting the change in-place instead. This is because we change our resource name in the configuration. Certain operations will force the resources to be recreated whcih might be crucial for your runs i.e. chaning a tag will be most likely change in place while rewriting a bootstap script for your virtual machine will most likely cause the recration of the resource. In the bigger configuration this could have a cascading effect.
 
 Now lets refresh our world by running and see the changes we made.
+
 ```bash
 render-flat
 ```
-You should see two blocks not so apart from each other. Time to make our first "structure" - line. Please copy the snippet below to your `main.tf` file.
+
+You should see two blocks not so apart from each other. Time to make our first "structure" - the line. Please copy the snippet below to your `main.tf` file.
 
 ```go
 resource "minecraft_block" "block_one" {
@@ -229,6 +231,7 @@ resource "minecraft_block" "block_five" {
   }
 }
 ```
+
 Now lets run apply followed by `yes`:
 
 ```bash
