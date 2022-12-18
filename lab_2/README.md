@@ -130,4 +130,113 @@ You may need to refresh your map by running:
 ```bash
 render-flat
 ```
-Now by just adjusting your width and length you could build a flat rectangle or line, that sounds like something 
+Now let's destroy our current creations by running:
+
+```bash
+terraform destroy
+```
+Followed by `yes`
+
+## Terraform modules - let's get cubical
+Now by just adjusting your width and length you could build a flat rectangle or line, that sounds like something you could reuse in the future. That is a grat use case for using terrafrom modules. As most of the inputs are defined by the variables with the default values already - this should be fairly quick.
+First let's create new directory and mv our current code by executing the following commands in your terminal
+
+```bash
+mkdir /home/playground/workdir/Terraform-X-Minecraft/cubical
+cp terraform.tf cubical/
+mv main.tf variables.tf cubical/
+```
+Now in your IDE create new empty main.tf and variables.tf files and copy the following to the `main.tf`
+```go
+module "line" {
+    source = "./cubical"
+}
+```
+Now you can run `terraform plan` (make sure you are in `/home/playground/workdir/Terraform-X-Minecraft` directory) and you should see the same output as before. Before we apply anything we can imporve our module to be even more well rounded. Let's look on our `cubical/main.tf` file first and update the `locals` block to look like below:
+
+```
+locals {
+    list_of_coordinates = setproduct(range(var.width_start, var.width_stop, var.width_step), [var.height], range(var.length_start, var.length_stop, var.length_step))
+    list_of_blocks = [for block in local.list_of_coordinates : zipmap(["x", "y", "z"], block)]
+}
+```
+We added extra variables to take the full control of the size with start, stop and step variables for width and length - We can also build on different heights. Now we need to define them in `cubical/variables.tf`. Your file should look like:
+```go
+variable "block_material" {
+    type = string
+    default = "minecraft:stone"
+    description = "Type of material you are using for your structure - different materials will have different colours"
+}
+
+variable "width_start" {
+    default = 0 
+    description = "starting X coordinate of the range"
+}
+
+variable "width_stop" {
+    default = 1 
+    description = "last X coordinate of the range"
+
+}
+
+variable "width_step" {
+    default = 1 
+    description = "number of steps to find the next X value in the range i.e. with step 1 range 0 to 3 will include 0,1,2 with step 2 it will include 0, 2"
+}
+
+variable "length_start" {
+    default = 0 
+    description = "starting Z coordinate of the range"
+
+}
+
+variable "length_stop" {
+    default = 1 
+    description = "last Z coordinate of the range"
+}
+
+variable "length_step" {
+    default = 1 
+    description = "number of steps to find the next Z value in the range i.e. with step 1 range 0 to 3 will include 0,1,2 with step 2 it will include 0, 2"
+
+}
+
+variable "height" {
+    default = -60 
+    description = "Value of the Y coordinate which is height - on the flat map we provided -60 is the ground level"
+}
+
+```
+Now you can run `terraform plan` again. Your output will show that your module by default is trying to build one blocke starting from coordinates 0,64,0. We can now move to our `main.tf` file in top directory and change the way we call our module, you can use the snipet below:
+
+```go
+module "square" {
+    source = "./cubical"
+    length_stop = 5
+    width_stop = 5
+}
+```
+That should build us a square on the ground level starting from (0,64,0) to (5,64,5) coordinates - lets run:
+```bash
+terraform apply
+```
+Folowed by `yes` and then shortly after we can refresh the map to see the resoults by running:
+```
+reneder-flat
+```
+
+## Modules and functions - count
+We all knew where this is going we have a module to create flat squares and we can stack them on the top of each other - time to make a cube! This time we are going count which is yet another terraform meta argument we are going to learn about today. We are going to call our module 5 times and we are going to change the height coordinate each time we are calling the module:
+
+```go
+module "cube" {
+    count = 5
+    source = "./cubical"
+    length_stop = 5
+    width_stop = 5
+    height = -60 + count.index
+}
+```
+Now lests run terraform apply, followed by `yes`, you can the refresh the map and see the results!
+
+That is lab number 2! You should know your way around terraform now - in the next lab we will prvide you some additional tools and you will take it wherever you want! Go to [Lab_3 -  Time to get creative](../lab_3/README.md) when you are ready!
