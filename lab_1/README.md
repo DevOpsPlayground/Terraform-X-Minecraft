@@ -40,3 +40,28 @@ The output hould look like below:
 <b>Note</b> Terraform created a hidden directory where the provider executable was downloaded as well created the dependancy file.
 
 ## Creating your first resource 
+
+Our next step is to create and then deploy our first resource. Let's create `main.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` dicrectory. To define a resource we need to provide the required input arguments. In this case we need to define them all, but in the different providers some or even all of the inputs might be optional. Please use the coordinates as below so you can follow your work in the view easier - you can access it at `<your-panda>.devopsplayground.org:8123`
+
+```go
+resource "minecraft_block" "stone" {
+  material = "minecraft:stone"
+
+  position = {
+    x = 0,
+    y = 64,
+    z = 0,
+  }
+}
+
+```
+Once you saved the file, please run the following commands from your termainal (make sure that you are in the `/home/playground/workdir/Terraform-X-Minecraft` directory)
+```bash
+pwd # check if we are in the right directory
+terraform plan
+terraform apply
+```
+After running terraform apply type `yes` to confirm the plan. Your output should look like below.
+<p align="center">
+  <img src="./images/tf-plan-apply.png" />
+</p>
