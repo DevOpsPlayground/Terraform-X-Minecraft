@@ -111,7 +111,7 @@ variable "position" {
   }
 }
 ```
-You can see the we can define simple variables like strings or integers as well as more complex objects. Now lets edit our `main.tf` file to make use of our variables.
+You can see the we can define simple variables like strings or integers as well as more complex objects. You can find more about inpout variables in the [documentation](https://developer.hashicorp.com/terraform/language/values/variables). Now we also need to edit our `main.tf` file to make use of our variables.
 ```go
 resource "minecraft_block" "stone" {
   material = var.block_material
@@ -123,3 +123,128 @@ resource "minecraft_block" "stone" {
   }
 }
 ```
+We can now run:
+```
+terraform plan
+```
+You should see no changes to do as our default value for the variable was the same as previously defined. That default values can be override see the [documentation](https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables) to see more details and precedence they take. At the very top will be the cli argument so let's give it a try:
+```bash
+terraform plan -var='block_material=minecraft:gold_ore'
+```
+Your output should look like below:
+<p align="center">
+  <img src="./images/tf-var.png" />
+</p>
+We are not going to apply it just yet, at fir  we are going to add anoter resource to our `main.tf` file. It should look like below now:
+
+```go
+resource "minecraft_block" "block_one" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+
+resource "minecraft_block" "block_two" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x + 10,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+```
+<b>Note</b>: Each resource we create needs to have a unique name hence we have `block_one` and `block_two`. You can imagine how long our configuration will get when we start building something more complex right? Don't worry - we will cover how two deal with in the next labs! 
+Please also note how in the 2nd block we used our vaiable with simple match and therefore changed the coordinates for our block. We can run a our apply now and let's override our `block_material` variable again.
+
+```bash
+terraform apply -var='block_material=minecraft:gold_ore'
+```
+
+Your output should look like below:
+
+<p align="center">
+  <img src="./images/tf-apply-var.png" />
+</p>
+
+<b>Note</b>: This time our good old block was destroyed before we created a new one it is place. Your previous plan was suggesting the change in-place instead. This is because we change our resource name in the configuration. Certain operations will force the resources to be recreated whcih might be crucial for your runs i.e. chaning a tag will be most likely change in place while rewriting a bootstap script for your virtual machine will most likely cause the recration of the resource. In the bigger configuration this could have a cascading effect.
+
+Now lets refresh our world by running and see the changes we made.
+```bash
+render-flat
+```
+You should see two blocks not so apart from each other. Time to make our first "structure" - line. Please copy the snippet below to your `main.tf` file.
+
+```go
+resource "minecraft_block" "block_one" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+
+resource "minecraft_block" "block_two" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x + 1,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+
+resource "minecraft_block" "block_three" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x + 2,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+
+resource "minecraft_block" "block_four" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x + 3,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+resource "minecraft_block" "block_five" {
+  material = var.block_material
+
+  position = {
+    x = var.position.x + 4,
+    y = var.position.y,
+    z = var.position.z,
+  }
+}
+```
+Now lets run apply followed by `yes`:
+
+```bash
+terraform apply
+```
+
+Then refresh our world again:
+
+```bash
+render-flat
+```
+
+Your flat world view should look like below now:
+
+<p align="center">
+  <img src="./images/line-map.png" />
+</p>
+
+That is for the first lab! Time to take it up a notch and move to the [Lab_2 - I am going to build a wall...](../lab_2/README.md)!
