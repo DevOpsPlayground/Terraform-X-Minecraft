@@ -45,5 +45,5 @@ The session should take ~60 minutes and attendees does not need to have any prev
 ### [Lab_3 -  Time to get creative!](./lab_3/README.md):
 
     - Minecraft alphabet 
-    - Panda module
+    - Panda module and more...
     - Show us what you have got!
