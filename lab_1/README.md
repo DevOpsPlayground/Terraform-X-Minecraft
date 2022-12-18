@@ -49,7 +49,7 @@ resource "minecraft_block" "stone" {
 
   position = {
     x = 0,
-    y = -60,
+    y = 64,
     z = 0,
   }
 }
@@ -106,7 +106,7 @@ variable "position" {
 
   default = {
     x = 0,
-    y = -60,
+    y = 64,
     z = 0
   }
 }
