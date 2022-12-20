@@ -241,4 +241,4 @@ module "cube" {
 ```
 Now let's run `terraform init` and  `terraform apply`, followed by `yes`, you can refresh the map and see the results!
 
-That is lab number 2! You should know your way around terraform now - in the next lab we will provide you with some additional tools and you will take it wherever you want! Go to [Lab_3 -  Time to get creative](../lab_3/README.md) when you are ready!
+That is it lab number 2! You should know your way around terraform now - in the next lab we will provide you with some additional tools and you will take it wherever you want! Go to [Lab_3 -  Time to get creative](../lab_3/README.md) when you are ready!
