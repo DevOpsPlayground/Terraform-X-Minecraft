@@ -11,7 +11,7 @@ Our very first step will be to define and configure our Terraform provider. Let'
 ```bash
 cd /home/playground/workdir/Terraform-X-Minecraft
 ```
-In another VSCode tab, let's open our IDE and in the same directory create `terraform.tf` file. In this file we will define our terraform configuration, and for today's workshop all we need is our Minecraft provider. Copy the snippet below:
+In another VSCode tab, let's open our IDE and in the same directory create `terraform.tf` file. In this file, we will define our terraform configuration, and for today's workshop, all we need is our Minecraft provider. Copy the snippet below:
 ```go
 terraform {
   required_providers {
@@ -22,9 +22,9 @@ terraform {
   }
 }
 ```
-We'll work on a very simple use case today, but in more advanced configurations we may have multiple providers, as well as remote backend configured in this file
+We'll work on a very simple use case today, but in more advanced configurations we may have multiple providers, as well as a remote backend configured in this file
 
-We instructed Terraform which version of the provider to use, so now we need to configure it. Create a `provider.tf` file in the same directory and populate it with the snippet below:
+We instructed Terraform on which version of the provider to use, so now we need to configure it. Create a `provider.tf` file in the same directory and populate it with the snippet below:
 ```go
 provider "minecraft" {
   address  = "127.0.0.1:25575"
@@ -47,7 +47,7 @@ The output should look like below:
 
 ## Creating your first resource 
 
-Our next step is to create and then deploy our first building block in Minecraft, using terraform resource. Let's create `main.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory. To define a resource, we need to provide the required input arguments. In this case, we need to define them all, but in different providers some or even all the inputs might be optional. Please use the coordinates as below, so you can follow your work in the view easier - you can access it at `<your-panda>.devopsplayground.org:8123`
+Our next step is to create and then deploy our first building block in Minecraft, using terraform resource. Let's create `main.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory. To define a resource, we need to provide the required input arguments. In this case, we need to define them all, but in different providers, some or even all the inputs might be optional. Please use the coordinates below, so you can follow your work in the view easier - you can access it at `<your-panda>.devopsplayground.org:8123`
 
 ```go
 resource "minecraft_block" "stone" {
@@ -80,7 +80,7 @@ render-flat
 After ~60 seconds you should see your block at `<your-panda>.devopsplayground.org:8123`
 
 ## Terraform state
-Once we applied the configuration - lets have a quick look on what kind sorcery Terraform did for us behind the scenes. Let's type:
+Once we applied the configuration - let's have a quick look at what kind of sorcery Terraform did for us behind the scenes. Let's type:
 
 ```bash
 ls-al
@@ -96,7 +96,7 @@ Your output should look like below:
 <b>Note</b>: Terraform created the state file where the current state of your infrastructure is captured. When running a plan - terraform will refer to the state to see how your desired state is different from your current state. The state can be configured to be stored remotely (i.e. Terraform Cloud/Enterprise, S3) so all your engineers have the same information to execute against. You can use `terraform state <option>` commands to manipulate your state.
 
 ## Using variables
-Terraform is making the use of variables we can define and use in our configurations. Let's create a `variables.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory and paste the following:
+Terraform is making use of variables we can define and use in our configurations. Let's create a `variables.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory and paste the following:
 ```go
 variable "block_material" {
     type = string
@@ -118,7 +118,7 @@ variable "position" {
   }
 }
 ```
-You can see that we can define simple variables like strings or integers as well as more complex objects. You can find more about inpout variables in the [documentation](https://developer.hashicorp.com/terraform/language/values/variables). Now we also need to edit our `main.tf` file to make use of our variables.
+You can see that we can define simple variables like strings or integers as well as more complex objects. You can find more about input variables in the [documentation](https://developer.hashicorp.com/terraform/language/values/variables). Now we also need to edit our `main.tf` file to make use of our variables.
 ```go
 resource "minecraft_block" "stone" {
   material = var.block_material
@@ -134,7 +134,7 @@ We can now run:
 ```
 terraform plan
 ```
-You should see no changes to do as our default value for the variable was the same as previously defined. That default values can be overriden - see the [documentation](https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables) to see more details and precedence they take. At the very top will be the CLI argument, so let's give it a try:
+You should see no changes to do as our default value for the variable was the same as previously defined. That default values can be overridden - see the [documentation](https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables) to see more details and precedence they take. At the very top will be the CLI argument, so let's give it a try:
 ```bash
 terraform plan -var='block_material=minecraft:gold_ore'
 ```
@@ -142,7 +142,7 @@ Your output should look like below:
 <p align="center">
   <img src="./images/tf-var.png" />
 </p>
-We are not going to apply it just yet - first, we are going to add another resource to our `main.tf` file. It should look like below now:
+We are not going to apply it just yet - first, we are going to add another resource to our `main.tf` file. It should look like the below now:
 
 ```go
 resource "minecraft_block" "block_one" {
@@ -166,7 +166,7 @@ resource "minecraft_block" "block_two" {
 }
 ```
 <b>Note</b>: Each resource we create needs to have a unique name hence we have `block_one` and `block_two`. You can imagine how long our configuration will get when we start building something more complex, right? Don't worry - we will cover how to deal with this in the next labs! 
-Please also note how in the 2nd block we used our variable with simple math, and therefore changed the coordinates for our block. We can run the apply command now, while overriding our `block_material` variable again.
+Please also note how in the 2nd block we used our variable with simple math, and therefore changed the coordinates for our block. We can run the apply command now while overriding our `block_material` variable again.
 
 ```bash
 terraform apply -var='block_material=minecraft:gold_ore'
@@ -178,9 +178,9 @@ Your output should look like below:
   <img src="./images/tf-apply-var.png" />
 </p>
 
-<b>Note</b>: This time our good old block was destroyed before we created a new one in its place. Your previous plan was suggesting the change in-place instead. This is because we change our resource name in the configuration. Certain operations will force the resources to be recreated, which might be crucial for your runs - i.e. changing a tag will be most likely change in place, while rewriting a bootstrap script for your virtual machine will most likely cause the recreation of the resource. This could have a cascading effect in bigger configuration.
+<b>Note</b>: This time our good old block was destroyed before we created a new one in its place. Your previous plan was suggesting the change in place instead. This is because we change our resource name in the configuration. Certain operations will force the resources to be recreated, which might be crucial for your runs - i.e. changing a tag will be the most likely change in place, while rewriting a bootstrap script for your virtual machine will most likely cause the recreation of the resource. This could have a cascading effect in a bigger configuration.
 
-Now lets refresh our world by running the below command and see the changes we made.
+Now let's refresh our world by running the below command and see the changes we made.
 
 ```bash
 render-flat
@@ -239,7 +239,7 @@ resource "minecraft_block" "block_five" {
 }
 ```
 
-Now lets run auto-apply:
+Now let's run auto-apply:
 
 ```bash
 terraform apply --auto-approve
@@ -251,7 +251,7 @@ Then refresh our world again:
 render-flat
 ```
 
-Your flat world view should look like below now:
+Your flat world view should look like the below now:
 
 <p align="center">
   <img src="./images/line-map.png" />
