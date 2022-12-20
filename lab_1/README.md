@@ -257,4 +257,4 @@ Your flat world view should look like below now:
   <img src="./images/line-map.png" />
 </p>
 
-That is for the first lab! Time to take it up a notch and move to the [Lab_2 - I am going to build a wall...](../lab_2/README.md)!
+That is it for the first lab! Time to take it up a notch and move to the [Lab_2 - I am going to build a wall...](../lab_2/README.md)!
