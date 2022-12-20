@@ -223,7 +223,7 @@ terraform apply
 ```
 Folowed by `yes` and then shortly after we can refresh the map to see the resoults by running:
 ```
-reneder-flat
+render-flat
 ```
 
 ## Modules and functions - count
