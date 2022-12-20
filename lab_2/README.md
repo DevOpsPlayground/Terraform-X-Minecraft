@@ -2,7 +2,8 @@
 
 ## Introducing locals and functions
 We should now know how to create resources and use variables. In terraform we can also use locals which cannot you override from the cli. There are different approaches and use cases for when you should use one or another which we will not full cover today, but one of the examples below will be a great use case for using locals. 
-We will also leverage the terrafrom functions to make our code cleaner and more reusable as placing hundread blocks in the same manner we did in the previous excersise would be a tedious task. We are a going to use a `for_each` fucntion in our first step - to learn more about what is availible for you - see the [documentation](https://developer.hashicorp.com/terraform/language/functions). Please go to your `main.tf` file and replace it is content with the snippet below: 
+
+We will also leverage the terrafrom functions to make our code cleaner and more reusable as placing hundread blocks in the same manner we did in the previous excersise would be a tedious task. We are a going to use a `for_each` meta-argument in our first step - to learn more about what is availible for you - see the [documentation](https://developer.hashicorp.com/terraform/language). Please go to your `main.tf` file and replace it is content with the snippet below: 
 
 ```go
 locals {
@@ -76,7 +77,7 @@ locals {
 ```
 <b>Note</b>: We left -60 intentionally as this will define our ground level. 
 
-Range function while provided with only one argument (integer) it will produce a list of numbers within that range starting from 1 and not including the number. There is more to it so if you feel adventurous go to the [documentation](https://developer.hashicorp.com/terraform/language/functions/range).
+Range function while provided with only one argument (integer) it will produce a list of numbers within that range starting from 0 and not including the number. There is more to it so if you feel adventurous go to the [documentation](https://developer.hashicorp.com/terraform/language/functions/range).
 
 The `setproduct` function will take multiple lists and create objects with all possible variations for the data in the lists - for more details go to the [documentation](https://developer.hashicorp.com/terraform/language/functions/setproduct)
 
