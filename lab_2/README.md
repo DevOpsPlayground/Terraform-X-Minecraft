@@ -153,7 +153,7 @@ module "line" {
     source = "./cubical"
 }
 ```
-Now you can run `terraform plan` (make sure you are in `/home/playground/workdir/Terraform-X-Minecraft` directory) and you should see the same output as before. Before we apply anything we can improve our module to be even more well-rounded. Let's look at our `cubical/main.tf` file first and update the `locals` block to look like the below:
+Now you can run `terraform init` and `terraform plan` (make sure you are in `/home/playground/workdir/Terraform-X-Minecraft` directory) and you should see the same output as before. Before we apply anything we can improve our module to be even more well-rounded. Let's look at our `cubical/main.tf` file first and update the `locals` block to look like the below:
 
 ```
 locals {
@@ -208,7 +208,7 @@ variable "height" {
 }
 
 ```
-Now you can run `terraform init` and `terraform plan` again. Your output will show that your module by default is trying to build one block starting from coordinates 0,64,0. We can now move to our `main.tf` file in the top directory and change the way we call our module, you can use the snippet below:
+Now you can run `terraform init` and `terraform plan` again. Your output will show that your module by default is trying to build one block starting from coordinates 0,-60,0. We can now move to our `main.tf` file in the top directory and change the way we call our module, you can use the snippet below:
 
 ```go
 module "square" {
