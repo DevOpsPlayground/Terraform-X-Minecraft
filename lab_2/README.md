@@ -217,7 +217,7 @@ module "square" {
     width_stop = 5
 }
 ```
-That should build us a square on the ground level starting from (0,64,0) to (5,64,5) coordinates - let's run:
+That should build us a square on the ground level starting from (0,-60,0) to (5,-60,5) coordinates - let's run:
 ```bash
 terraform init
 terraform apply
