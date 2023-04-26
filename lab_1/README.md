@@ -1,6 +1,6 @@
 # Let's start with the dot
 
-Start by opening three tabs in ypur browser:
+Start by opening three tabs in your browser:
 - Wetty: `http://<your-panda>.devopsplayground.org/wetty`
 - VSCode text editor: `http://<your-panda>.devopsplayground.org:8000`
 - Live Minecraft map: `http://<your-panda>.devopsplayground.org:8123`
