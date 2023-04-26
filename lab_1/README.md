@@ -1,6 +1,6 @@
 # Let's start with the dot
 
-Start by opening three tabs in our browser:
+Start by opening three tabs in ypur browser:
 - Wetty: `http://<your-panda>.devopsplayground.org/wetty`
 - VSCode text editor: `http://<your-panda>.devopsplayground.org:8000`
 - Live Minecraft map: `http://<your-panda>.devopsplayground.org:8123`
@@ -22,7 +22,7 @@ terraform {
   }
 }
 ```
-We'll work on a very simple use case today, but in more advanced configurations we may have multiple providers, as well as a remote backend configured in this file
+We'll work on a very simple use case today, but in more advanced configurations we may have multiple providers, as well as a remote backend configured in this file.
 
 We instructed Terraform on which version of the provider to use, so now we need to configure it. Create a `provider.tf` file in the same directory and populate it with the snippet below:
 ```go
@@ -31,7 +31,7 @@ provider "minecraft" {
   password = "PandaTime"
 }
 ```
-In this case, we provide a password as a string, which, of course, is not advisable. Terraform can integrate with secret managing services (such as Hashicorp Vault), or use credentials from the environment (such as environment variables, aws credential file etc.)
+In this case, we provide a password as a string, which, of course, is not advisable. Terraform can integrate with secret managing services (such as Hashicorp Vault), or use credentials from the environment (such as environment variables, aws credential file etc.).
 
 Now we can initialise our provider by going back to the window with our terminal and executing
 ```bash
@@ -47,7 +47,7 @@ The output should look like below:
 
 ## Creating your first resource 
 
-Our next step is to create and then deploy our first building block in Minecraft, using terraform resource. Let's create `main.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory. To define a resource, we need to provide the required input arguments. In this case, we need to define them all, but in different providers, some or even all the inputs might be optional. Please use the coordinates below, so you can follow your work in the view easier - you can access it at `<your-panda>.devopsplayground.org:8123`
+Our next step is to create and then deploy our first building block in Minecraft, using terraform resource. Let's create `main.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory. To define a resource, we need to provide the required input arguments. In this case, we need to define them all, but in different providers, some or even all the inputs might be optional. To follow your work in the view more easily, please use the coordinates below - you can access it at `<your-panda>.devopsplayground.org:8123`
 
 ```go
 resource "minecraft_block" "stone" {
@@ -68,7 +68,7 @@ terraform plan
 terraform apply
 ```
 Note: you can auto apply using the following command instead of the ones above: `terraform apply --auto-approve`
-After running Terraform, apply type `yes` to confirm the plan. Your output should look like below.
+After running Terraform, apply type `yes` to confirm the plan. Your output should look like below:
 <p align="center">
   <img src="./images/tf-plan-apply.png" />
 </p>
@@ -93,10 +93,10 @@ Your output should look like below:
   <img src="./images/tf-state.png" />
 </p>
 
-<b>Note</b>: Terraform created the state file where the current state of your infrastructure is captured. When running a plan - terraform will refer to the state to see how your desired state is different from your current state. The state can be configured to be stored remotely (i.e. Terraform Cloud/Enterprise, S3) so all your engineers have the same information to execute against. You can use `terraform state <option>` commands to manipulate your state.
+<b>Note</b>: Terraform created the state file where the current state of your infrastructure is captured. When running a plan, Terraform will refer to the state to see how your desired state is different from your current state. The state can be configured to be stored remotely (i.e. Terraform Cloud/Enterprise, S3) so all your engineers have the same information to execute against. You can use `terraform state <option>` commands to manipulate your state.
 
 ## Using variables
-Terraform is making use of variables we can define and use in our configurations. Let's create a `variables.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory and paste the following:
+Terraform is making use of variables that we can define and use in our configurations. Let's create a `variables.tf` file in the `/home/playground/workdir/Terraform-X-Minecraft` directory and paste the following:
 ```go
 variable "block_material" {
     type = string
@@ -134,7 +134,7 @@ We can now run:
 ```
 terraform plan
 ```
-You should see no changes to do as our default value for the variable was the same as previously defined. That default values can be overridden - see the [documentation](https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables) to see more details and precedence they take. At the very top will be the CLI argument, so let's give it a try:
+You shouldn't see any changes that need to be done as our default value for the variable was the same as the one previously defined. That default values can be overridden - see the [documentation](https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables) to see more details and precedence they take. At the very top will be the CLI argument, so let's give it a try:
 ```bash
 terraform plan -var='block_material=minecraft:gold_ore'
 ```
@@ -165,7 +165,7 @@ resource "minecraft_block" "block_two" {
   }
 }
 ```
-<b>Note</b>: Each resource we create needs to have a unique name hence we have `block_one` and `block_two`. You can imagine how long our configuration will get when we start building something more complex, right? Don't worry - we will cover how to deal with this in the next labs! 
+<b>Note</b>: Each resource we create must have a unique name hence we have `block_one` and `block_two`. You can imagine how long our configuration will get when we start building something more complex, right? Don't worry - we will cover how to deal with this in the next labs! 
 Please also note how in the 2nd block we used our variable with simple math, and therefore changed the coordinates for our block. We can run the apply command now while overriding our `block_material` variable again.
 
 ```bash
