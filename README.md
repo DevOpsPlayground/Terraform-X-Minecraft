@@ -6,13 +6,13 @@ Welcome to your introduction to Infrastructure as Code with Terraform. Today we 
 ## Initial setup
 
 As long as you are registered for the event you can request your environment at [lab.devopsplayground.org](https://lab.devopsplayground.org/)
-We created a virtual machine for you with a terminal and IDE as well as a running Minecraft server. We installed the mode so you can render the world in the browser. There are different views available, but for this workshop, we are going to use flat and 3d-view as shown in the screenshot below:
+We created a virtual machine for you with a terminal and IDE, as well as a running Minecraft server. We installed the mode so you can render the world in the browser. There are different views available, but for this workshop, we are going to use flat and 3d-view as shown in the screenshot below:
 
 <p align="center">
   <img src="./lab_1/images/mc-map.png" />
 </p>
 
-This setup while does not require you to install anything comes with some limitations. The rendering needs to be triggered from the Minecraft server. For your convenience we added the following commands you can use on the instance:
+While this setup does not require you to install anything, it comes with some limitations. The rendering needs to be triggered from the Minecraft server. For your convenience we've added the following commands to be used on the instance:
 
 ```bash
 render-flat # renders the flat map
