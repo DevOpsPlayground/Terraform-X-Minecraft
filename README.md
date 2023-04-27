@@ -22,6 +22,10 @@ mc-logs # logs of Minecraft server - you can see the status and progress of your
 ```
 #### <b>Note:</b> If you have your own Minecraft licence and Minecraft client installed - feel free to log in to the server and see the changes to your world in real time without the need to render.
 
+## DIY
+If you would like to replicate this setup on your machine you will need to:
+1. Install Terraform [docs](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+2. Configure Minecraft server - We used docker image to run it and you can find the exact configuration in `minecraft.sh`
 ## Agenda
 The session should take ~60 minutes and attendees do not need to have any previous experience. If you are already a terraform guru - at the end of the session, we encourage everyone to build something cool - that will be your time to shine!
 
