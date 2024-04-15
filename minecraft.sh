@@ -92,6 +92,7 @@ docker run -d \
     -e TYPE=FABRIC \
     -e VERSION=1.19.2 \
     -e OVERRIDE_SERVER_PROPERTIES="false" \
+    -e CREATE_CONSOLE_IN_PIPE="true" \
     -p 25565:25565 \
     -p 8123:8123 \
     -p 25575:25575 -e EULA=TRUE -e MEMORY=16G --name mc itzg/minecraft-server
