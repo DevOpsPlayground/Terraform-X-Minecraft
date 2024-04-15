@@ -21,6 +21,13 @@ render-stop # stops rendering *note - full 3d render takes ~30mins so we advise 
 mc-logs # logs of Minecraft server - you can see the status and progress of your rendering, as well as any calls terraform, makes to the server
 ```
 #### <b>Note:</b> If you have your own Minecraft licence and Minecraft client installed - feel free to log in to the server and see the changes to your world in real time without the need to render.
+If you plan to log into the server you may wish to run the following commands to make it a little easier to see what you build.
+```bash
+docker exec mc mc-send-to-console /op <your Minecraft name>
+docker exec mc mc-send-to-console /gamerule doDaylightCycle false
+docker exec mc mc-send-to-console /gamerule doWeatherCycle false
+docker exec mc mc-send-to-console /time set noon
+```
 
 ## DIY
 If you would like to replicate this setup on your machine you will need to:
