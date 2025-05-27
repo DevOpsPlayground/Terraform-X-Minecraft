@@ -25,5 +25,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/devopsplayground/Terraform-X-Minecraft:latest
+          tags: ghcr.io/devopsplayground/terraform_x_minecraft:latest
           labels: ${{ github.sha }} 
