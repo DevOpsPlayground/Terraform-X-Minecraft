@@ -18,7 +18,7 @@ RUN cd /tmp && \
 
 # Clone Playground repo
 RUN cd ~ && \
-    git clone https://github.com/DevOpsPlayground/Terraform-X-Minecraft.git
+    git clone https://github.com/DevOpsPlayground/Terraform-X-Minecraft
 
 # Verify installations
 RUN terraform --version
