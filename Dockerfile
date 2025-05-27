@@ -17,7 +17,7 @@ RUN cd /tmp && \
     rm -f /tmp/${PRODUCT}_${VERSION}_linux_${ARCHITECTURE}.zip ${PRODUCT}_${VERSION}_SHA256SUMS ${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS.sig 
 
 # Clone Playground repo
-RUN cd ~ && \
+RUN cd /root/workdir && \
     git clone https://github.com/DevOpsPlayground/Terraform-X-Minecraft
 
 # Verify installations
